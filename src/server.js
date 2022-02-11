@@ -13,9 +13,9 @@ const server = http.createServer(async (req, res) => {
     case "/":
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      res.end("Aha\n");
+      res.end("Welcome to the humble weather API!\n");
       break;
-    case `/weather/?city=${city}`:
+    case `/weather/?city=${encodeURI(city)}`:
       try {
         const rawWeatherData = await getDailyWeather(city);
         results.weather_data = parseDailyWeatherResults(rawWeatherData);
