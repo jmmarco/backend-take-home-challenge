@@ -56,18 +56,18 @@
 Fields in API response
 
 - `weather_data` (object)
-  - `city_name (string)
+  - `city_name` (string)
   - `country_name`
-  - forecast (list)
-    - temperatures (object)
-      - day (number)
-      - min (number)
-      - max (number)
-      - night (number)
-      - eve (number)
-      - morn (number)
-  - humidity (number)
-  - weather
+  - `forecast` (list)
+    - `temperatures` (object)
+      - `day` (number)
+      - `min` (number)
+      - `max` (number)
+      - `night` (number)
+      - `eve` (number)
+      - `morn` (number)
+  - `humidity` (number)
+  - `weather` (object)
     - short_description (string)
     - long_description (string)
 
