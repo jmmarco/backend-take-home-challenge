@@ -1,10 +1,16 @@
 # Backend Node.js server application that provides weather data
 
+## File structure:
+
+- `server.js` main file that creates the http server and defines some routes
+- `api.js` contains a single function that handles the API request to the Openweather API
+- utils.js contains a single function that parses the returned data from `api.js` and returns a custom `weather_data` object. See how it looks below.
+
 ## Available endpoints
 
 `/weather/?city=NAME`
 
-Example of API reponse Response:
+**Example of API reponse Response**:
 
 ```
 {
@@ -49,21 +55,21 @@ Example of API reponse Response:
 
 Fields in API response
 
-- weather_data
-  - city_name
-  - country_name
-  - forecast
-    - temperatures
-      - day
-      - min
-      - max
-      - night
-      - eve
-      - morn
-  - humidity
+- `weather_data` (object)
+  - `city_name (string)
+  - `country_name`
+  - forecast (list)
+    - temperatures (object)
+      - day (number)
+      - min (number)
+      - max (number)
+      - night (number)
+      - eve (number)
+      - morn (number)
+  - humidity (number)
   - weather
-    - short_description
-    - long_description
+    - short_description (string)
+    - long_description (string)
 
 # Quickstart
 
