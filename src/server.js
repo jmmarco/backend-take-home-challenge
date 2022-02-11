@@ -1,38 +1,32 @@
-// import { createServer } from "http";
-// import url from "url";
-
 const http = require("http");
 const url = require("url");
 const getDailyWeather = require("./api");
+const parseDailyWeatherResults = require("./utils");
 
 const { hostname, port } = process.env;
 
-async function myWeather() {
-  const weatherData = await getDailyWeather("austin");
-  console.log("okkkk");
-  console.log(weatherData);
-}
-
-const server = http.createServer((req, res) => {
+const server = http.createServer(async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
-  console.log(queryObject);
   const { city } = queryObject;
-
-  console.log(req.url);
-
+  const results = {};
   switch (req.url) {
     case "/":
       res.statusCode = 200;
-
       res.setHeader("Content-Type", "application/json");
       res.end("Aha\n");
       break;
     case `/weather/?city=${city}`:
-      // const weatherData = getDailyWeather(city);
-      myWeather();
+      try {
+        const rawWeatherData = await getDailyWeather(city);
+        results.weather_data = parseDailyWeatherResults(rawWeatherData);
+      } catch (err) {
+        results.error = err.messsage;
+        res.statusCode = 500;
+        res.end("Something went wrong! Try again later.");
+      }
       res.statusCode = 200;
       res.setHeader("Content-Type", "application/json");
-      res.end(`QUERY PARAMs is ${city}\n`);
+      res.end(JSON.stringify(results));
       break;
     default:
       res.statusCode = 404;
@@ -43,5 +37,7 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
+  console.log(
+    `Server running at http://${process.env.HOSTNAME}:${process.env.SSE_MANAGER_PORT_80_TCP_PORT}/`
+  );
 });
