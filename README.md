@@ -68,8 +68,8 @@ Fields in API response
       - `morn` (number)
   - `humidity` (number)
   - `weather` (object)
-    - short_description (string)
-    - long_description (string)
+    - `short_description` (string)
+    - `long_description` (string)
 
 # Quickstart
 
