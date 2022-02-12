@@ -71,9 +71,13 @@ Fields in API response
     - `short_description` (string)
     - `long_description` (string)
 
-# Quickstart
+## Quickstart
 
 Open a Browser window and type in:
 `https://2cg77.sse.codesandbox.io/weather/?city=austin`
 
 Replace `austin` with the city of your choice
+
+## Caveats and limitations
+
+Temperature values are currently displayed in Farenheit temperature scale.

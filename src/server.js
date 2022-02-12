@@ -9,24 +9,21 @@ const server = http.createServer(async (req, res) => {
   const queryObject = url.parse(req.url, true).query;
   const { city } = queryObject;
   const results = {};
+
   switch (req.url) {
-    case "/":
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end("Welcome to the humble weather API!\n");
-      break;
     case `/weather/?city=${encodeURI(city)}`:
+      res.setHeader("Content-Type", "application/json");
+
       try {
         const rawWeatherData = await getDailyWeather(city);
         results.weather_data = parseDailyWeatherResults(rawWeatherData);
+        res.statusCode = 200;
+        res.end(JSON.stringify(results));
       } catch (err) {
-        results.error = err.messsage;
         res.statusCode = 500;
-        res.end("Something went wrong! Try again later.");
+        res.end(`Something went wrong! Try again later. ${err}`);
       }
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "application/json");
-      res.end(JSON.stringify(results));
+
       break;
     default:
       res.statusCode = 404;
