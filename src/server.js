@@ -27,8 +27,10 @@ const server = http.createServer(async (req, res) => {
       break;
     default:
       res.statusCode = 404;
-      res.setHeader("Content-Type", "text/html");
-      res.end("<strong>Not found\n</strong>");
+      res.setHeader("Content-Type", "text/text");
+      const welcome = `Welcome to the Simple Weather API\nAvailable endpoints are: /weather/?city=NAME\nReplace NAME with the city name of your choosing.
+      `;
+      res.end(welcome);
       break;
   }
 });
