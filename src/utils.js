@@ -1,3 +1,8 @@
+/**
+ * This function parses the original OpenWeather response object
+ * and returns an object with simplified weather info for a given city
+ * @param {weatherResults} weatherResults - the original OpenWeather API object
+ */
 const parseDailyWeatherResults = (weatherResults = {}) => {
   const { city, list } = weatherResults;
   return {

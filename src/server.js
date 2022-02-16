@@ -2,18 +2,25 @@ const http = require("http");
 const url = require("url");
 const getDailyWeather = require("./api");
 const parseDailyWeatherResults = require("./utils");
+const host = "127.0.0.1";
+const port = 4000;
 
-const { hostname, port } = process.env;
-
+/**
+ * Represents a instance of a asynchronous Node HTTP server.
+ * @param {req} request - The request object of the server.
+ * @param {res} response - The response object of the server.
+ */
 const server = http.createServer(async (req, res) => {
+  // Isolate the query object and extract the city parameter
   const queryObject = url.parse(req.url, true).query;
   const { city } = queryObject;
+
+  // An object to hold the results of the request being made
   const results = {};
 
   switch (req.url) {
     case `/weather/?city=${encodeURI(city)}`:
       res.setHeader("Content-Type", "application/json");
-
       try {
         const rawWeatherData = await getDailyWeather(city);
         results.weather_data = parseDailyWeatherResults(rawWeatherData);
@@ -23,7 +30,6 @@ const server = http.createServer(async (req, res) => {
         res.statusCode = 500;
         res.end(`Something went wrong! Try again later. ${err}`);
       }
-
       break;
     default:
       res.statusCode = 404;
@@ -35,8 +41,7 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-server.listen(port, hostname, () => {
-  console.log(
-    `Server running at http://${process.env.HOSTNAME}:${process.env.SSE_MANAGER_PORT_80_TCP_PORT}/`
-  );
+// Make the HTTP server instance listen on the default port and hostname
+server.listen(port, host, () => {
+  console.log(`Server running at http://${host}:${port}/`);
 });
