@@ -1,8 +1,9 @@
-const http = require("http");
-const url = require("url");
-const getDailyWeather = require("./api");
-const parseDailyWeatherResults = require("./utils");
-const host = "127.0.0.1";
+require('dotenv').config();
+const http = require('http');
+const url = require('url');
+const getDailyWeather = require('./api');
+const parseDailyWeatherResults = require('./utils');
+const host = '127.0.0.1';
 const port = 4000;
 
 /**
@@ -20,7 +21,7 @@ const server = http.createServer(async (req, res) => {
 
   switch (req.url) {
     case `/weather/?city=${encodeURI(city)}`:
-      res.setHeader("Content-Type", "application/json");
+      res.setHeader('Content-Type', 'application/json');
       try {
         const rawWeatherData = await getDailyWeather(city);
         results.weather_data = parseDailyWeatherResults(rawWeatherData);
@@ -33,7 +34,7 @@ const server = http.createServer(async (req, res) => {
       break;
     default:
       res.statusCode = 404;
-      res.setHeader("Content-Type", "text/text");
+      res.setHeader('Content-Type', 'text/text');
       const welcome = `Welcome to the Simple Weather API\nAvailable endpoints are: /weather/?city=NAME\nReplace NAME with the city name of your choosing.
       `;
       res.end(welcome);
