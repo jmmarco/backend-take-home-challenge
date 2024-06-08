@@ -10,7 +10,7 @@
 
 `/weather/?city=NAME`
 
-**Example of API reponse Response**:
+**Example of API response Response**:
 
 ```
 {
@@ -73,11 +73,12 @@ Fields in API response
 
 ## Quickstart
 
-Open a Browser window and type in:
-`https://2cg77.sse.codesandbox.io/weather/?city=austin`
+1. Clone the repository
+2. Run `npm install`
+3. Rename `.env.example` to `.env` and add your OpenWeather API key. You can get one [here](https://home.openweathermap.org/users/sign_up)
 
 Replace `austin` with the city of your choice
 
 ## Caveats and limitations
 
-Temperature values are currently displayed in Farenheit temperature scale.
+Temperature values are currently displayed in Fahrenheit temperature scale.
